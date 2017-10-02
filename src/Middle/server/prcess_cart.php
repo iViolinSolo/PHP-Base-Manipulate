@@ -14,6 +14,39 @@ $privateKey = get_rsa_privatekey('private.key');
 // compute the decrypted value
 $decrypted = rsa_decryption($encrypted, $privateKey);
 
+list($product_a_name,
+    $product_a_price,
+    $product_a_quantity,
+    $product_a_subtotal,
+    $product_b_name,
+    $product_b_price,
+    $product_b_quantity,
+    $product_b_subtotal,
+    $product_c_name,
+    $product_c_price,
+    $product_c_quantity,
+    $product_c_subtotal,
+    $credit_card_no) = explode('&', $decrypted);
+
+//$product_a_name = document.getElementById('product_a_name').value;
+//$product_a_price = document.getElementById('product_a_price').value;
+//$product_a_quantity = document.getElementById('product_a_quantity').value;
+//$product_a_subtotal = document.getElementById('product_a_subtotal').value;
+//$product_b_name = document.getElementById('product_b_name').value;
+//$product_b_price = document.getElementById('product_b_price').value;
+//$product_b_quantity = document.getElementById('product_b_quantity').value;
+//$product_b_subtotal = document.getElementById('product_b_subtotal').value;
+//$product_c_name = document.getElementById('product_c_name').value;
+//$product_c_price = document.getElementById('product_c_price').value;
+//$product_c_quantity = document.getElementById('product_c_quantity').value;
+//$product_c_subtotal = document.getElementById('product_c_subtotal').value;
+//$credit_card_no = document.getElementById('credit_card_no').value;
+
+$filename = "../database/shoppingcart.txt";
+$file = fopen($filename, 'a');
+fwrite($file, $decrypted."\n");
+fclose($file);
+
 ?>
 
 <!DOCTYPE html>
@@ -95,5 +128,45 @@ $decrypted = rsa_decryption($encrypted, $privateKey);
     <br>
     <br>
 
+    Your Encryted Table:
+
+    <table>
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><?php echo $product_a_name;?></td>
+            <td><?php echo $product_a_price; ?></td>
+            <td><?php echo $product_a_quantity;?></td>
+            <td><?php echo $product_a_subtotal;?></td>
+        </tr>
+        <tr>
+            <td><?php echo $product_b_name;?></td>
+            <td><?php echo $product_b_price; ?></td>
+            <td><?php echo $product_b_quantity;?></td>
+            <td><?php echo $product_b_subtotal;?></td>
+        </tr>
+        <tr>
+            <td><?php echo $product_c_name;?></td>
+            <td><?php echo $product_c_price; ?></td>
+            <td><?php echo $product_c_quantity;?></td>
+            <td><?php echo $product_c_subtotal;?></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Total</th>
+            <th></th>
+<!--            <th>--><?php //echo $total_quantity; ?><!--</th>-->
+<!--            <th>--><?php //echo $total_price; ?><!--</th>-->
+        </tr>
+        </tfoot>
+    </table>
 </body>
 </html>

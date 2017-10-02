@@ -37,19 +37,19 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Product A <input type="hidden" value="Product A" name="product_a_name"></td>
+                    <td>Product A <input type="hidden" id="product_a_name" value="Product A" name="product_a_name"></td>
                     <td>$10 <input type="hidden" value="10" id="product_a_price" name="product_a_price"></td>
                     <td><input type="number" value="0" min="0" id="product_a_quantity" name="product_a_quantity" onchange="that.updateAll()"></td>
                     <td><div id="product_a_subtotal_prs">$0</div> <input type="hidden" value="0" id="product_a_subtotal" name="product_a_subtotal"></td>
                 </tr>
                 <tr>
-                    <td>Product B <input type="hidden" value="Product B" name="product_b_name"></td>
+                    <td>Product B <input type="hidden" id="product_b_name" value="Product B" name="product_b_name"></td>
                     <td>$20 <input type="hidden" value="20" id="product_b_price" name="product_b_price"></td>
                     <td><input type="number" value="0" min="0" id="product_b_quantity" name="product_b_quantity" onchange="that.updateAll()"></td>
                     <td><div id="product_b_subtotal_prs">$0</div> <input type="hidden" value="0" id="product_b_subtotal" name="product_b_subtotal"></td>
                 </tr>
                 <tr>
-                    <td>Product C <input type="hidden" value="Product C" name="product_c_name"></td>
+                    <td>Product C <input type="hidden" id="product_c_name" value="Product C" name="product_c_name"></td>
                     <td>$15 <input type="hidden" value="15" id="product_c_price" name="product_c_price"></td>
                     <td><input type="number" value="0" min="0" id="product_c_quantity" name="product_c_quantity" onchange="that.updateAll()"></td>
                     <td><div id="product_c_subtotal_prs">$0</div> <input type="hidden" value="0" id="product_c_subtotal" name="product_c_subtotal"></td>
@@ -59,8 +59,8 @@
                 <tr>
                     <th>Total</th>
                     <th></th>
-                    <th><div id="quantity">0</div><input id="total_quantity" name="total_quantity" type="hidden"/></th>
-                    <th><div id="price">$0</div><input id="total_price" name="total_price" type="hidden"/></th>
+                    <th><div id="quantity">0</div><input value="0" id="total_quantity" name="total_quantity" type="hidden"/></th>
+                    <th><div id="price">$0</div><input value="0" id="total_price" name="total_price" type="hidden"/></th>
                 </tr>
             </tfoot>
         </table>
@@ -101,6 +101,8 @@
             document.getElementById('quantity').innerHTML = totalQuantity;
             document.getElementById('price').innerHTML = '$'+totalPrice;
 
+            document.getElementById('total_quantity').value = totalQuantity;
+            document.getElementById('total_price').value = '$'+totalPrice;
         }
     </script>
 
@@ -133,9 +135,36 @@
         }
 
         function encrypt_all_with_RSA() {
+            var product_a_name = document.getElementById('product_a_name').value;
+            var product_a_price = document.getElementById('product_a_price').value;
+            var product_a_quantity = document.getElementById('product_a_quantity').value;
+            var product_a_subtotal = document.getElementById('product_a_subtotal').value;
+            var product_b_name = document.getElementById('product_b_name').value;
+            var product_b_price = document.getElementById('product_b_price').value;
+            var product_b_quantity = document.getElementById('product_b_quantity').value;
+            var product_b_subtotal = document.getElementById('product_b_subtotal').value;
+            var product_c_name = document.getElementById('product_c_name').value;
+            var product_c_price = document.getElementById('product_c_price').value;
+            var product_c_quantity = document.getElementById('product_c_quantity').value;
+            var product_c_subtotal = document.getElementById('product_c_subtotal').value;
             var credit_card_no = document.getElementById('credit_card_no').value;
 
-            var encryted_credit_card_no = RSA_encryption(credit_card_no);
+            var content = "";
+            content = product_a_name + '&'
+                + product_a_price + '&'
+                + product_a_quantity + '&'
+                + product_a_subtotal + '&'
+                + product_b_name + '&'
+                + product_b_price + '&'
+                + product_b_quantity + '&'
+                + product_b_subtotal + '&'
+                + product_c_name + '&'
+                + product_c_price + '&'
+                + product_c_quantity + '&'
+                + product_c_subtotal + '&'
+                + credit_card_no;
+
+            var encryted_credit_card_no = RSA_encryption(content);
 
             console.log(encryted_credit_card_no);
 

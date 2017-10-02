@@ -31,7 +31,11 @@ if ($exist == 0) {
     <p>Go Login with <a href='../client/login.html'>Link</a></p>";
 } else {
     if($target_password == $ipt_psd."\n") {
-        echo "Login Success!!!";
+        $url = '../client/shoppingcart.html';
+        if (!isset($url))
+            exit;
+        echo "<HTML><HEAD><META HTTP-EQUIV=\"REFRESH\" CONTENT=\"3; URL=$url\"> </HEAD> <BODY> 
+                Login Success!!!</BODY> </HTML>";
     }else {
         echo "Your username is not matching with your password
     <p>Go Register with <a href='../client/register.html'>Link</a></p>

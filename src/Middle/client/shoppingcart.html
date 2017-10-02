@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+
+    <style>
+        table {
+            width: 70%;
+            border-collapse: collapse;
+        }
+        th {
+            text-align: center;
+            background: #5ca866;
+            color: aliceblue;
+        }
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Shopping Cart</h1>
+
+    <form action="" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Product A <input type="hidden" value="Product" name="product_a_name"></td>
+                    <td>$10 <input type="hidden" value="10" id="product_a_price" name="product_a_price"></td>
+                    <td><input type="number" value="0" min="0" id="product_a_quantity" name="product_a_quantity" onchange="that.updateAll()"></td>
+                    <td><div id="product_a_subtotal_prs">$0</div> <input type="hidden" value="0" id="product_a_subtotal" name="product_a_subtotal"></td>
+                </tr>
+                <tr>
+                    <td>Product B <input type="hidden" value="Product" name="product_b_name"></td>
+                    <td>$20 <input type="hidden" value="20" id="product_b_price" name="product_b_price"></td>
+                    <td><input type="number" value="0" min="0" id="product_b_quantity" name="product_b_quantity" onchange="that.updateAll()"></td>
+                    <td><div id="product_b_subtotal_prs">$0</div> <input type="hidden" value="0" id="product_b_subtotal" name="product_b_subtotal"></td>
+                </tr>
+                <tr>
+                    <td>Product C <input type="hidden" value="Product" name="product_c_name"></td>
+                    <td>$15 <input type="hidden" value="15" id="product_c_price" name="product_c_price"></td>
+                    <td><input type="number" value="0" min="0" id="product_c_quantity" name="product_c_quantity" onchange="that.updateAll()"></td>
+                    <td><div id="product_c_subtotal_prs">$0</div> <input type="hidden" value="0" id="product_c_subtotal" name="product_c_subtotal"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th></th>
+                    <th><div id="quantity">0</div><input id="total_quantity" name="total_quantity" type="hidden"/></th>
+                    <th><div id="price">$0</div><input id="total_price" name="total_price" type="hidden"/></th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <button type="button" onclick="that.updateAll()">Update</button>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script type="text/javascript">
+        var that = this;
+
+        that.getQuantity = function getQuantity(product_name) {
+            var product_u_quantity = parseInt(document.getElementById(product_name+'_quantity').value);
+            return product_u_quantity;
+        };
+
+        that.calTotalVal = function calTotalVal(product_name) {
+            var product_u_quantity = parseInt(document.getElementById(product_name+'_quantity').value);
+            var product_u_price = parseInt(document.getElementById(product_name+'_price').value);
+
+            var product_u_subtotal = product_u_quantity * product_u_price;
+            document.getElementById(product_name+'_subtotal').value = product_u_subtotal;
+            document.getElementById(product_name+'_subtotal_prs').innerHTML = '$'+product_u_subtotal;
+            return product_u_subtotal;
+        };
+
+        that.updateAll = function updateAll() {
+            var totalPrice = that.calTotalVal("product_a") + that.calTotalVal("product_b") +that.calTotalVal("product_c");
+            var totalQuantity = that.getQuantity("product_a") + that.getQuantity("product_b") +that.getQuantity("product_c");
+
+            document.getElementById('quantity').innerHTML = totalQuantity;
+            document.getElementById('price').innerHTML = '$'+totalPrice;
+
+        }
+    </script>
+</body>
+</html>

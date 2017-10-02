@@ -23,6 +23,14 @@
 </head>
 <body>
 
+    <form action="../server/store_des_key_4c.php" method="post">
+        Enter your custom DES Key:<input type="text" id="des_key" name="des_key">
+        <br>
+        <br>
+        <input type="hidden" value=""  name="encrypted_des_key" id="encrypted_des_key">
+        <input type="submit" value="Submit DES Key" onclick="encrypt_des_key_with_RSA()">
+    </form>
+
     <h1>Shopping Cart</h1>
 
     <form action="../server/prcess_cart.php" method="post">
@@ -173,6 +181,20 @@
             console.log(encryted_credit_card_no);
 
             document.getElementById('encrypted').value = encryted_credit_card_no;
+        }
+
+        function encrypt_des_key_with_RSA() {
+            var des_key = document.getElementById('des_key').value;
+
+
+            var content = "";
+            content = des_key ;
+
+            var encryted_des_key = RSA_encryption(content);
+
+            console.log(encryted_des_key);
+
+            document.getElementById('encrypted_des_key').value = encryted_des_key;
         }
     </script>
 </body>

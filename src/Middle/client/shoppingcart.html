@@ -6,15 +6,17 @@
 
     <style>
         table {
-            width: 70%;
+            width: 400px;
             border-collapse: collapse;
         }
         th {
+            width: 100px;
             text-align: center;
-            background: #5ca866;
+            background: #4CAF50;
             color: aliceblue;
         }
         td {
+            width: 100px;
             text-align: center;
         }
     </style>
@@ -35,19 +37,19 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Product A <input type="hidden" value="Product" name="product_a_name"></td>
+                    <td>Product A <input type="hidden" value="Product A" name="product_a_name"></td>
                     <td>$10 <input type="hidden" value="10" id="product_a_price" name="product_a_price"></td>
                     <td><input type="number" value="0" min="0" id="product_a_quantity" name="product_a_quantity" onchange="that.updateAll()"></td>
                     <td><div id="product_a_subtotal_prs">$0</div> <input type="hidden" value="0" id="product_a_subtotal" name="product_a_subtotal"></td>
                 </tr>
                 <tr>
-                    <td>Product B <input type="hidden" value="Product" name="product_b_name"></td>
+                    <td>Product B <input type="hidden" value="Product B" name="product_b_name"></td>
                     <td>$20 <input type="hidden" value="20" id="product_b_price" name="product_b_price"></td>
                     <td><input type="number" value="0" min="0" id="product_b_quantity" name="product_b_quantity" onchange="that.updateAll()"></td>
                     <td><div id="product_b_subtotal_prs">$0</div> <input type="hidden" value="0" id="product_b_subtotal" name="product_b_subtotal"></td>
                 </tr>
                 <tr>
-                    <td>Product C <input type="hidden" value="Product" name="product_c_name"></td>
+                    <td>Product C <input type="hidden" value="Product C" name="product_c_name"></td>
                     <td>$15 <input type="hidden" value="15" id="product_c_price" name="product_c_price"></td>
                     <td><input type="number" value="0" min="0" id="product_c_quantity" name="product_c_quantity" onchange="that.updateAll()"></td>
                     <td><div id="product_c_subtotal_prs">$0</div> <input type="hidden" value="0" id="product_c_subtotal" name="product_c_subtotal"></td>

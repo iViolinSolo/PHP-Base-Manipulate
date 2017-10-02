@@ -34,8 +34,17 @@ if ($exist == 0) {
         $url = '../client/shoppingcart.html';
         if (!isset($url))
             exit;
-        echo "<HTML><HEAD><META HTTP-EQUIV=\"REFRESH\" CONTENT=\"3; URL=$url\"> </HEAD> <BODY> 
-                Login Success!!!</BODY> </HTML>";
+        echo "
+            <HTML>
+                <HEAD>
+                    <META HTTP-EQUIV=\"REFRESH\" CONTENT=\"3; URL=$url\"> 
+                </HEAD> 
+                <BODY> 
+                <h1>Login Success!!!</h1>
+                <p>It will redirect to shopping cart in 3s, if not, you can manually click this<a href='../client/shoppingcart.html'> Link</a></p>
+                
+                </BODY> 
+            </HTML>";
     }else {
         echo "Your username is not matching with your password
     <p>Go Register with <a href='../client/register.html'>Link</a></p>

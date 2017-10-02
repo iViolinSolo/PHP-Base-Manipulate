@@ -8,12 +8,14 @@
 
 Enter a Message: <input id="message" type="text">
 <br><br>
-<p id="encrypted"></p>
-
 Enter a DES encryption key: <input id="DES_Encryption_Key" type="text">
 <br><br>
+<button onclick="des_encrption()" type="button">Encrypt</button>
+<button onclick="des_decreption()" type="button">Decrypt</button>
 
 <p id="decrypted"></p>
+<br><br>
+<p id="encrypted"></p>
 
 
 <script type="text/javascript" src="des.js"></script>
@@ -24,13 +26,15 @@ Enter a DES encryption key: <input id="DES_Encryption_Key" type="text">
 
         var encrepted = javascript_des_encryption(key, msg);
 
+        document.getElementById('encrypted').innerHTML = encrepted;
     }
 
     function des_decreption() {
-        var msg = document.getElementById('message').value;
+        var msg = document.getElementById('encrypted').innerHTML;
         var key = document.getElementById('DES_Encryption_Key').value;
 
         var decrepted = javascript_des_decryption(key, msg);
+        document.getElementById('decrypted').innerHTML = decrepted;
     }
 </script>
 </body>

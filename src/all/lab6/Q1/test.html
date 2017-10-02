@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<input type="text" id="ipt"/>
+
+<button type="button" onclick="hash()">Hash</button>
+
+<p id="result"></p>
+
+
+<script type="text/javascript" src="sha256.js"></script>
+<script type="text/javascript">
+    function hash() {
+        var ipt = document.getElementById("ipt").value;
+
+        var hashed = SHA256.hash(ipt);
+
+        document.getElementById("result").innerHTML = hashed;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form action="server.php" method="post">
+
+        Enter:<input id="txt" type="text" name="txt"/>
+        <br>
+
+        <input type="submit" value="Submit" onclick="hash()">
+
+    </form>
+
+    <script type="text/javascript" src="sha256.js"></script>
+    <script type="text/javascript">
+        function hash() {
+            var text  =  document.getElementById("txt").value;
+            var hashed = SHA256.hash(text);
+            document.getElementById("txt").value = hashed;
+        }
+    </script>
+</body>
+</html>

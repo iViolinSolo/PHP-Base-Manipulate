@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+Enter a Message: <input id="message" type="text">
+<br><br>
+<p id="encrypted"></p>
+
+Enter a DES encryption key: <input id="DES_Encryption_Key" type="text">
+<br><br>
+
+<p id="decrypted"></p>
+
+
+<script type="text/javascript" src="des.js"></script>
+<script type="text/javascript">
+    function des_encrption() {
+        var msg = document.getElementById('message').value;
+        var key = document.getElementById('DES_Encryption_Key').value;
+
+        var encrepted = javascript_des_encryption(key, msg);
+
+    }
+
+    function des_decreption() {
+        var msg = document.getElementById('message').value;
+        var key = document.getElementById('DES_Encryption_Key').value;
+
+        var decrepted = javascript_des_decryption(key, msg);
+    }
+</script>
+</body>
+</html>

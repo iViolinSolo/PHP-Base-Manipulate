@@ -5,6 +5,15 @@
  * Date: 02/10/2017
  * Time: 6:01 PM
  */
+include "rsa.php";
+
+$encrypted = $_POST['encrypted'];
+
+// Get the private Key
+$privateKey = get_rsa_privatekey('private.key');
+// compute the decrypted value
+$decrypted = rsa_decryption($encrypted, $privateKey);
+
 ?>
 
 <!DOCTYPE html>
@@ -73,6 +82,18 @@
         </tr>
         </tfoot>
     </table>
+
+    <br>
+    <br>
+
+    Your Card Number:<p><?php echo $_POST["credit_card_no"]; ?></p>
+    <br>
+    <br>
+
+    Your Encrypted Message :<p><?php echo $_POST["encrypted"]; ?></p>
+    Your Decrypted Message :<p><?php echo $decrypted; ?></p>
+    <br>
+    <br>
 
 </body>
 </html>

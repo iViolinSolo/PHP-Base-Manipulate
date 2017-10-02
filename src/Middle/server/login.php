@@ -41,7 +41,7 @@ if ($exist == 0) {
                 </HEAD> 
                 <BODY> 
                 <h1>Login Success!!!</h1>
-                <p>It will redirect to shopping cart in 3s, if not, you can manually click this<a href='../client/shoppingcart.html'> Link</a></p>
+                <p>It will redirect to shopping cart in 3s, if not, you can manually click this<a href=$url> Link</a></p>
                 
                 </BODY> 
             </HTML>";

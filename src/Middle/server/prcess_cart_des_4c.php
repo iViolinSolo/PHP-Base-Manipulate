@@ -5,6 +5,27 @@
  * Date: 02/10/2017
  * Time: 6:01 PM
  */
+
+include "des.php";
+
+$des_key = '';
+foreach (file('../database/deskey.txt') as $item) {
+    $des_key = $item;
+    break;
+}
+
+echo "key: " . $des_key . "<br/>";
+
+// PHP des encryption API (in des.php)
+$ciphertext = $_POST['encrypted'];
+
+echo "DES encrypted message: " . $ciphertext;
+echo "<br/>";
+
+//// PHP des decryption API (in des.php)
+//$recovered_message = php_des_decryption($des_key, $ciphertext);
+//echo "DES decrypted message: " . $recovered_message;
+
 include "rsa.php";
 
 $encrypted = $_POST['encrypted'];

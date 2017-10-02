@@ -116,6 +116,8 @@
 
     <script type="text/javascript" src="js/rsa.js">
     </script>
+    <script type="text/javascript" src="js/des.js">
+    </script>
     <script>
         function RSA_encryption(plaintext){
 //            var plaintext = document.getElementById("plaintext").value;
@@ -126,6 +128,16 @@
             var encrypted = encrypt.encrypt(plaintext);
 
 //            document.getElementById("encrypted").innerHTML = encrypted;
+            return encrypted;
+        }
+
+        function DES_encryption(plain_text) {
+
+            var key = document.getElementById("des_key").value;
+
+            // javascript des encryption api
+            var encrypted = javascript_des_encryption(key, plain_text);
+
             return encrypted;
         }
 
@@ -176,7 +188,7 @@
                 + total_price + '&'
                 + credit_card_no;
 
-            var encryted_credit_card_no = RSA_encryption(content);
+            var encryted_credit_card_no = DES_encryption(content);
 
             console.log(encryted_credit_card_no);
 

@@ -15,6 +15,9 @@
     User Password: <input id="psd" type="password" name="user_psd"/>
     <br>
     <br>
+    <input id="use_hash" name="use_hash" type="checkbox" checked="checked" >Want Hash Your Password?
+    <br>
+    <br>
     <br>
     <input type="submit" value="Register!" onclick="hashPassword()"/>
 
@@ -23,6 +26,10 @@
 <script type="text/javascript" src="js/sha256.js"></script>
 <script type="text/javascript">
     function hashPassword() {
+        if (!document.getElementById('use_hash').checked) {
+            return;
+        }
+
         var psdVal = document.getElementById("psd").value;
         var hashedPsd = SHA256.hash(psdVal);
         document.getElementById("psd").value = hashedPsd;

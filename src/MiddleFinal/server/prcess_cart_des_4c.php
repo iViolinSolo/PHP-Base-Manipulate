@@ -19,13 +19,13 @@ foreach (file('../database/deskey.txt') as $item) {
 echo "des_key: [" . $des_key . "]<br/>";
 
 // PHP des encryption API (in des.php)
-$ciphertext = $_POST['encrypted'];
+$des_encrypted_content = $_POST['des_encrypted'];
 
-echo "DES encrypted message: " . $ciphertext;
+echo "DES encrypted message: " . $des_encrypted_content;
 echo "<br/>";
 
 // PHP des decryption API (in des.php)
-$recovered_message = php_des_decryption($des_key, $ciphertext);
+$recovered_message = php_des_decryption($des_key, $des_encrypted_content);
 echo "DES decrypted message: " . $recovered_message;
 echo "<br/>";
 
@@ -79,7 +79,7 @@ fclose($file);
 </head>
 <body>
 
-<h1>Received Form (What the customer submitted)</h1>
+<h1>4.a -> Received Form (What the customer submitted)</h1>
 
 
     <table>
@@ -128,9 +128,64 @@ fclose($file);
     <br>
     <br>
 
-<h1>Received Form (What the customer DES Encrypted submitted)</h1>
+
+<h1>4.b -> Received Form (What the customer RSA Encrypted submitted)</h1>
 <br>
-    Your Encrypted Message :<p><?php echo $_POST["encrypted"]; ?></p>
+Your Encrypted Message :<p><?php echo $_POST["encrypted"]; ?></p>
+Your Decrypted Message :<p><?php echo $recovered_message; ?></p>
+<br>
+<br>
+
+Your Encryted Table:
+
+<table>
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><?php echo $product_a_name;?></td>
+        <td><?php echo $product_a_price; ?></td>
+        <td><?php echo $product_a_quantity;?></td>
+        <td><?php echo $product_a_subtotal;?></td>
+    </tr>
+    <tr>
+        <td><?php echo $product_b_name;?></td>
+        <td><?php echo $product_b_price; ?></td>
+        <td><?php echo $product_b_quantity;?></td>
+        <td><?php echo $product_b_subtotal;?></td>
+    </tr>
+    <tr>
+        <td><?php echo $product_c_name;?></td>
+        <td><?php echo $product_c_price; ?></td>
+        <td><?php echo $product_c_quantity;?></td>
+        <td><?php echo $product_c_subtotal;?></td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Total</th>
+        <th></th>
+        <th><?php echo $total_quantity; ?></th>
+        <th><?php echo $total_price; ?></th>
+    </tr>
+    </tfoot>
+</table>
+<br>
+<br>
+
+Your Card Number:<p><?php echo $credit_card_no; ?></p>
+<br>
+<br>
+
+<h1>4.c -> Received Form (What the customer DES Encrypted submitted)</h1>
+<br>
+    Your Encrypted Message :<p><?php echo $des_encrypted_content; ?></p>
     Your Decrypted Message :<p><?php echo $recovered_message; ?></p>
     <br>
     <br>
@@ -175,5 +230,11 @@ fclose($file);
         </tr>
         </tfoot>
     </table>
+    <br>
+    <br>
+
+    Your Card Number:<p><?php echo $credit_card_no; ?></p>
+    <br>
+    <br>
 </body>
 </html>

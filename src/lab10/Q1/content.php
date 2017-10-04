@@ -1,7 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: violinsolo
- * Date: 04/10/2017
- * Time: 10:04 AM
- */
+session_start();
+if(!isset($_SESSION['login'])){
+    header('Location: login.html');
+}
+?>
+
+<html>
+<body>
+
+<h2>Lab 10 content</h2>
+
+You can reach here only if you login successful.
+<br/><br/>
+<form action="logout.php" method="POST">
+    <button type="submit">Logout</button>
+</form>
+
+
+</body>
+</html>

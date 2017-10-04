@@ -3,6 +3,12 @@ session_start();
 if (!isset($_SESSION['login'])) {
     header('Location: login.html');
 }
+
+if (!isset($_SESSION['des_key'])) {
+    header("Location: user_enter_des_key.php");
+}
+
+$des_key = $_SESSION['des_key'];
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +38,9 @@ if (!isset($_SESSION['login'])) {
 
     <h1>Shopping Cart</h1>
 
-    <form action="../server/prcess_cart.php" method="post">
+    <input type="hidden" id="des_key" value="<?php echo $des_key;?>">
+
+    <form action="../server/prcess_cart_des_4c.php" method="post">
         <table>
             <thead>
                 <tr>
@@ -80,7 +88,7 @@ if (!isset($_SESSION['login'])) {
         <br>
         <!--<button type="button" onclick="that.updateAll()">Update</button>-->
         <input type="hidden" name="encrypted" id="encrypted">
-        <input type="submit" value="Submit" onclick="encrypt_all_with_RSA()">
+        <input type="submit" value="Submit" onclick="encrypt_all_with_DES()">
     </form>
 
     <script type="text/javascript">
@@ -115,33 +123,20 @@ if (!isset($_SESSION['login'])) {
 
     <script type="text/javascript" src="js/rsa.js">
     </script>
+    <script type="text/javascript" src="js/des.js"></script>
     <script>
-        function RSA_encryption(plaintext){
-//            var plaintext = document.getElementById("plaintext").value;
-            var pubilc_key = "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzdxaei6bt/xIAhYsdFdW62CGTpRX+GXoZkzqvbf5oOxw4wKENjFX7LsqZXxdFfoRxEwH90zZHLHgsNFzXe3JqiRabIDcNZmKS2F0A7+Mwrx6K2fZ5b7E2fSLFbC7FsvL22mN0KNAp35tdADpl4lKqNFuF7NT22ZBp/X3ncod8cDvMb9tl0hiQ1hJv0H8My/31w+F+Cdat/9Ja5d1ztOOYIx1mZ2FD2m2M33/BgGY/BusUKqSk9W91Eh99+tHS5oTvE8CI8g7pvhQteqmVgBbJOa73eQhZfOQJ0aWQ5m2i0NUPcmwvGDzURXTKW+72UKDz671bE7YAch2H+U7UQeawwIDAQAB-----END PUBLIC KEY-----";
-            // Encrypt with the public key...
-            var encrypt = new JSEncrypt();
-            encrypt.setPublicKey(pubilc_key);
-            var encrypted = encrypt.encrypt(plaintext);
 
-//            document.getElementById("encrypted").innerHTML = encrypted;
+        function DES_encryption(plain_text) {
+
+            var key = document.getElementById("des_key").value;
+
+            // javascript des encryption api
+            var encrypted = javascript_des_encryption(key, plain_text);
+
             return encrypted;
         }
 
-        function RSA_decryption(){
-
-            var encrypted = document.getElementById("encrypted").innerHTML;
-
-            var private_key = "-----BEGIN PRIVATE KEY-----MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDN3Fp6Lpu3/EgCFix0V1brYIZOlFf4ZehmTOq9t/mg7HDjAoQ2MVfsuyplfF0V+hHETAf3TNkcseCw0XNd7cmqJFpsgNw1mYpLYXQDv4zCvHorZ9nlvsTZ9IsVsLsWy8vbaY3Qo0Cnfm10AOmXiUqo0W4Xs1PbZkGn9fedyh3xwO8xv22XSGJDWEm/QfwzL/fXD4X4J1q3/0lrl3XO045gjHWZnYUPabYzff8GAZj8G6xQqpKT1b3USH3360dLmhO8TwIjyDum+FC16qZWAFsk5rvd5CFl85AnRpZDmbaLQ1Q9ybC8YPNRFdMpb7vZQoPPrvVsTtgByHYf5TtRB5rDAgMBAAECggEAUDPieCnCd1rtvwpehXElpwxzJxg6ccdaVMjwx7tuoRidHoRzeB2fUNbWvLVIGvDTjTPGAr5I9BoFHT5tARJMeGIzbISDxsosDBRKu88cCx6dRl3ukcjSLsxMh8XUDhyWLsSgAMIpxVfHUuOsHmLZ2I3Ho6o1KIxdVg/JSgtdwTqjz3w8jmGQ/NXgc7Ym/ys1fLG9L2nYdMzK/mRJf/BnXiCNE6/SYlZYO716oC688UJBWS3BqB9jaJyNpigX//ynJvU6xw8FhHt4fRStUmCCYAYhCQu3XgbtmxKisDGhdBVASG+DM+vVTh+sSvxkNrjJjF+m2tSg578A8C8Ls0r3uQKBgQDpO9e178NR0HHmvWbZR9+uPugf4UT9+U2/dEfJBHAOp2GRsIvXkFwbPHuSHkc0iEPwz+U8gPC8jInSslKOUDtaGtUaVzzWrxxh7DggWx4pYs3I0Ki8C+CRTTdOY9GAFa9jhIyRmf6v9QoAH/loGNV2qYFbb+HweD0PnxlWha1txQKBgQDh9IBBltW7T96foUmHOn+x6xlF5MNDHxLBY6bngxKvMTZoi5C6wmmCmasF45LWbkvUiMAsovYN5z4cJnKXWmRmCS8NXUucmUgdvsmCbiB62BmZvHaOffmnIdhcAjBebT/Bn5qMvKCNy3fQFSfuEw1eRRO2IofB4o7z7m794vo25wKBgEPowrQcrZhCwwdWGn4laUGI23l80+PHFRYru0MSYbZCkiwjZXRMeiUMBUbUPhNTocSaI7rsKCweF3sbpOH/BmkD6wySXgp8Th1M9EKnhS6zsAtKhfbK1oY4H2RZuAQ9TCYD0BIM7pU5GcJTjQD8ShsU269N8lFcERtdTbldjtOpAoGAF4YkADAa6lhjXg0loY2Gk9hdFji913QZuMaOLtYnkNO3zWSSWc85ut4Svxc1R1vOSz89eqgwo7vqbHXYQken4jOckXCgGZqftnERe6HJgeCTsby8PxOAdVUBuHqF3J7VH2xlY7eTo4+GVsSNFq0nHCRm6/RmW9ohdeXh6k7CLAsCgYBZe3RLWuffKxg+lZmv9tJDOO813QPLFeixrBYhKjGDcwjVYcCugGNDmyStM0/++uWddgMKavNALjpamu8KolDNivrjL1qaFHX9Bpi108T+dDn2WpX+vUP6hjA/U2wtTvUbJle1SsbZxRrV9gf5PAJqTrQY4u28ezjR3PCV+R4kdw==-----END PRIVATE KEY-----";
-            // Decrypt with the private key...
-            var decrypt = new JSEncrypt();
-            decrypt.setPrivateKey(private_key);
-            var decrypted = decrypt.decrypt(encrypted);
-
-            document.getElementById("decrypted").innerHTML = decrypted;
-        }
-
-        function encrypt_all_with_RSA() {
+        function encrypt_all_with_DES() {
             var product_a_name = document.getElementById('product_a_name').value;
             var product_a_price = document.getElementById('product_a_price').value;
             var product_a_quantity = document.getElementById('product_a_quantity').value;
@@ -175,7 +170,7 @@ if (!isset($_SESSION['login'])) {
                 + total_price + '&'
                 + credit_card_no;
 
-            var encryted_credit_card_no = RSA_encryption(content);
+            var encryted_credit_card_no = DES_encryption(content);
 
             console.log(encryted_credit_card_no);
 

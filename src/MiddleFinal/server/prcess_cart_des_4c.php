@@ -9,12 +9,14 @@
 include "des.php";
 
 $des_key = '';
+$user_name = '';
 foreach (file('../database/deskey.txt') as $item) {
-    $des_key = $item;
+//    $des_key = $item;
+    list($user_name, $des_key) = explode(',',$item);
     break;
 }
 
-echo "key: |" . $des_key . "|<br/>";
+echo "des_key: [" . $des_key . "]<br/>";
 
 // PHP des encryption API (in des.php)
 $ciphertext = $_POST['encrypted'];
@@ -27,14 +29,6 @@ $recovered_message = php_des_decryption($des_key, $ciphertext);
 echo "DES decrypted message: " . $recovered_message;
 echo "<br/>";
 
-include "rsa.php";
-
-$encrypted = $_POST['encrypted'];
-
-// Get the private Key
-$privateKey = get_rsa_privatekey('private.key');
-// compute the decrypted value
-$decrypted = rsa_decryption($encrypted, $privateKey);
 
 list($product_a_name,
     $product_a_price,
@@ -50,12 +44,12 @@ list($product_a_name,
     $product_c_subtotal,
     $total_quantity,
     $total_price,
-    $credit_card_no) = explode('&', $decrypted);
+    $credit_card_no) = explode('&', $recovered_message);
 
 
 $filename = "../database/shoppingcart.txt";
 $file = fopen($filename, 'a');
-fwrite($file, $decrypted."\n");
+fwrite($file, $recovered_message."\n");
 fclose($file);
 
 ?>
@@ -134,8 +128,10 @@ fclose($file);
     <br>
     <br>
 
+<h1>Received Form (What the customer DES Encrypted submitted)</h1>
+<br>
     Your Encrypted Message :<p><?php echo $_POST["encrypted"]; ?></p>
-    Your Decrypted Message :<p><?php echo $decrypted; ?></p>
+    Your Decrypted Message :<p><?php echo $recovered_message; ?></p>
     <br>
     <br>
 

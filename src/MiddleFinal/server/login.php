@@ -37,7 +37,7 @@ if ($exist == 0) {
         $_SESSION['login'] = "YES";
         $_SESSION['user_name'] = $ipt_name;
 
-        header("Location: ../client/shoppingcart_needed_login.php");
+        header("Location: ../client/user_enter_des_key.php");
 
     }else {
         echo "Your username is not matching with your password

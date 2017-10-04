@@ -14,7 +14,7 @@ foreach (file('../database/deskey.txt') as $item) {
     break;
 }
 
-echo "key: " . $des_key . "<br/>";
+echo "key: |" . $des_key . "|<br/>";
 
 // PHP des encryption API (in des.php)
 $ciphertext = $_POST['encrypted'];
@@ -22,9 +22,10 @@ $ciphertext = $_POST['encrypted'];
 echo "DES encrypted message: " . $ciphertext;
 echo "<br/>";
 
-//// PHP des decryption API (in des.php)
-//$recovered_message = php_des_decryption($des_key, $ciphertext);
-//echo "DES decrypted message: " . $recovered_message;
+// PHP des decryption API (in des.php)
+$recovered_message = php_des_decryption($des_key, $ciphertext);
+echo "DES decrypted message: " . $recovered_message;
+echo "<br/>";
 
 include "rsa.php";
 

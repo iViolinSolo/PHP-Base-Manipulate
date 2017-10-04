@@ -6,10 +6,42 @@
 </head>
 <body>
 
+
 <form action="test_des.php" method="post">
-    <input name="encrypted" type="text">
+    <input type="hidden" id="DES_Encryption_Key" value="eva">
+    <input id="encrypted" name="encrypted" type="text" value="">
+    <!--<input id="encrypted" type="hidden">-->
+
+    <input type="submit" onclick="des_encrption()" >Sub</input>
 </form>
 
+
+<script type="text/javascript" src="des.js">
+</script>
+<script type="text/javascript">
+    function des_encrption() {
+        console.log("in");
+
+        var msg = document.getElementById('encrypted').value;
+
+        console.log(document.getElementById("encrypted"));
+
+        var key = document.getElementById('DES_Encryption_Key').value;
+
+        var encrepted = javascript_des_encryption(key, msg);
+
+        console.log(encrepted);
+        document.getElementById('encrypted').value = encrepted;
+    }
+
+    function des_decreption() {
+        var msg = document.getElementById('encrypted').value;
+        var key = document.getElementById('DES_Encryption_Key').value;
+
+        var decrepted = javascript_des_decryption(key, msg);
+        document.getElementById('decrypted').value = decrepted;
+    }
+</script>
 
 </body>
 </html>

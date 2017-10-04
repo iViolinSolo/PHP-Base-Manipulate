@@ -23,17 +23,9 @@
 </head>
 <body>
 
-    <form action="../server/store_des_key_4c.php" method="post">
-        Enter your custom DES Key:<input type="text" id="des_key" name="des_key">
-        <br>
-        <br>
-        <input type="hidden" value=""  name="encrypted_des_key" id="encrypted_des_key">
-        <input type="submit" value="Submit DES Key" onclick="encrypt_des_key_with_RSA()">
-    </form>
-
     <h1>Shopping Cart</h1>
 
-    <form action="../server/prcess_cart_des_4c.php" method="post">
+    <form action="prcess_cart.php" method="post">
         <table>
             <thead>
                 <tr>
@@ -114,9 +106,7 @@
         }
     </script>
 
-    <script type="text/javascript" src="js/rsa.js">
-    </script>
-    <script type="text/javascript" src="js/des.js">
+    <script type="text/javascript" src="../client/js/rsa.js">
     </script>
     <script>
         function RSA_encryption(plaintext){
@@ -128,16 +118,6 @@
             var encrypted = encrypt.encrypt(plaintext);
 
 //            document.getElementById("encrypted").innerHTML = encrypted;
-            return encrypted;
-        }
-
-        function DES_encryption(plain_text) {
-
-            var key = document.getElementById("des_key").value;
-
-            // javascript des encryption api
-            var encrypted = javascript_des_encryption(key, plain_text);
-
             return encrypted;
         }
 
@@ -188,25 +168,11 @@
                 + total_price + '&'
                 + credit_card_no;
 
-            var encryted_credit_card_no = DES_encryption(content);
+            var encryted_credit_card_no = RSA_encryption(content);
 
             console.log(encryted_credit_card_no);
 
             document.getElementById('encrypted').value = encryted_credit_card_no;
-        }
-
-        function encrypt_des_key_with_RSA() {
-            var des_key = document.getElementById('des_key').value;
-
-
-            var content = "";
-            content = des_key ;
-
-            var encryted_des_key = RSA_encryption(content);
-
-            console.log(encryted_des_key);
-
-            document.getElementById('encrypted_des_key').value = encryted_des_key;
         }
     </script>
 </body>

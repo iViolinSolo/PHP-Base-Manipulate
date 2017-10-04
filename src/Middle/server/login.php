@@ -6,6 +6,8 @@
  * Time: 3:19 PM
  */
 
+session_start();
+
 $ipt_name = $_POST['user_name'];
 $ipt_psd = $_POST['user_psd'];
 
@@ -31,7 +33,12 @@ if ($exist == 0) {
     <p>Go Login with <a href='../client/login.html'>Link</a></p>";
 } else {
     if($target_password == $ipt_psd."\n") {
-        $url = '../client/shoppingcart.html';
+
+        $_SESSION['login'] = "YES";
+        $_SESSION['user_name'] = $username;
+
+//        $url = '../client/shoppingcart.html';
+        $url = '../client/shoppingcart_needed_login.php';
         if (!isset($url))
             exit;
         echo "

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form method="post" action="../server/register.php">
+
+        User Name: <input type="text" name="user_name"/> <br>
+        User Password: <input id="psd" type="password" name="user_psd" /> <br>
+
+        <input type="submit" onclick="hash()" value="Register"/>
+    </form>
+
+    <script type="text/javascript" src="sha256.js">
+
+    </script>
+    <script type="text/javascript">
+        function hash() {
+            var password = document.getElementById('psd').value;
+            console.log(password);
+
+            var hashedpsd = SHA256.hash(password);
+
+            document.getElementById('psd').value = hashedpsd;
+
+            console.log(hashedpsd);
+        }
+    </script>
+</body>
+</html>

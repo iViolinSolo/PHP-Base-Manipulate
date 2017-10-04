@@ -25,3 +25,4 @@ Product A&10&0&0&Product B&20&0222&4440&Product C&15&022&330&244&$4770&0222
 Product A&10&3&30&Product B&20&2&40&Product C&15&3&45&8&$115&78882232323
 Product A&10&3&30&Product B&20&2&40&Product C&15&3&45&8&$115&78882232323
 Product A&10&0&0&Product B&20&0&0&Product C&15&0&0&0&0&
+Product A&10&3&30&Product B&20&4&80&Product C&15&3&45&10&$155&23443434 

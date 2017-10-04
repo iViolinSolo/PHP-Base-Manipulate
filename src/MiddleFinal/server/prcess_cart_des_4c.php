@@ -6,6 +6,34 @@
  * Time: 6:01 PM
  */
 
+// RSA DECRYPTION -----
+include "rsa.php";
+
+$rsa_encrypted = $_POST['rsa_encrypted'];
+
+// Get the private Key
+$privateKey = get_rsa_privatekey('private.key');
+// compute the decrypted value
+$rsa_decrypted = rsa_decryption($rsa_encrypted, $privateKey);
+
+list($rsa_product_a_name,
+    $rsa_product_a_price,
+    $rsa_product_a_quantity,
+    $rsa_product_a_subtotal,
+    $rsa_product_b_name,
+    $rsa_product_b_price,
+    $rsa_product_b_quantity,
+    $rsa_product_b_subtotal,
+    $rsa_product_c_name,
+    $rsa_product_c_price,
+    $rsa_product_c_quantity,
+    $rsa_product_c_subtotal,
+    $rsa_total_quantity,
+    $rsa_total_price,
+    $rsa_credit_card_no) = explode('&', $rsa_decrypted);
+
+
+// DES DECRYPTION -----
 include "des.php";
 
 $des_key = '';
@@ -131,8 +159,8 @@ fclose($file);
 
 <h1>4.b -> Received Form (What the customer RSA Encrypted submitted)</h1>
 <br>
-Your Encrypted Message :<p><?php echo $_POST["encrypted"]; ?></p>
-Your Decrypted Message :<p><?php echo $recovered_message; ?></p>
+Your Encrypted Message :<p><?php echo $rsa_encrypted; ?></p>
+Your Decrypted Message :<p><?php echo $rsa_decrypted; ?></p>
 <br>
 <br>
 
@@ -149,37 +177,37 @@ Your Encryted Table:
     </thead>
     <tbody>
     <tr>
-        <td><?php echo $product_a_name;?></td>
-        <td><?php echo $product_a_price; ?></td>
-        <td><?php echo $product_a_quantity;?></td>
-        <td><?php echo $product_a_subtotal;?></td>
+        <td><?php echo $rsa_product_a_name;?></td>
+        <td><?php echo $rsa_product_a_price; ?></td>
+        <td><?php echo $rsa_product_a_quantity;?></td>
+        <td><?php echo $rsa_product_a_subtotal;?></td>
     </tr>
     <tr>
-        <td><?php echo $product_b_name;?></td>
-        <td><?php echo $product_b_price; ?></td>
-        <td><?php echo $product_b_quantity;?></td>
-        <td><?php echo $product_b_subtotal;?></td>
+        <td><?php echo $rsa_product_b_name;?></td>
+        <td><?php echo $rsa_product_b_price; ?></td>
+        <td><?php echo $rsa_product_b_quantity;?></td>
+        <td><?php echo $rsa_product_b_subtotal;?></td>
     </tr>
     <tr>
-        <td><?php echo $product_c_name;?></td>
-        <td><?php echo $product_c_price; ?></td>
-        <td><?php echo $product_c_quantity;?></td>
-        <td><?php echo $product_c_subtotal;?></td>
+        <td><?php echo $rsa_product_c_name;?></td>
+        <td><?php echo $rsa_product_c_price; ?></td>
+        <td><?php echo $rsa_product_c_quantity;?></td>
+        <td><?php echo $rsa_product_c_subtotal;?></td>
     </tr>
     </tbody>
     <tfoot>
     <tr>
         <th>Total</th>
         <th></th>
-        <th><?php echo $total_quantity; ?></th>
-        <th><?php echo $total_price; ?></th>
+        <th><?php echo $rsa_total_quantity; ?></th>
+        <th><?php echo $rsa_total_price; ?></th>
     </tr>
     </tfoot>
 </table>
 <br>
 <br>
 
-Your Card Number:<p><?php echo $credit_card_no; ?></p>
+Your Card Number:<p><?php echo $rsa_credit_card_no; ?></p>
 <br>
 <br>
 
